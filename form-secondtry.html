@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://demo.loris.ca/imaging_browser/ -->
+<html style="height:100%; background:transparent" class="webgl gr__demo_loris_ca">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./form-secondtry_files/main.css" type="text/css">
+    <link type="image/x-icon" rel="icon" href="https://demo.loris.ca/images/favicon.ico">
+
+    <script src="./form-secondtry_files/loris.js.download" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var loris = new LorisHelper({ "BaseURL": "https:\/\/demo.loris.ca", "TestName": "imaging_browser", "Subtest": "", "CandID": "", "SessionID": "", "CommentID": "" }, ["access_all_profiles", "acknowledgements_edit", "acknowledgements_view", "bvl_feedback", "candidate_parameter_edit", "candidate_parameter_view", "config", "conflict_resolver", "context_help", "dataquery_view", "data_dict_edit", "data_dict_view", "data_entry", "data_integrity_flag", "data_release_upload", "data_team_helper", "dicom_archive_view_allsites", "document_repository_delete", "document_repository_view", "examiner_multisite", "examiner_view", "genomic_browser_view_allsites", "genomic_browser_view_site", "genomic_data_manager", "imaging_browser_phantom_allsites", "imaging_browser_phantom_ownsite", "imaging_browser_qc", "imaging_browser_view_allsites", "imaging_browser_view_site", "imaging_uploader", "instrument_builder", "issue_tracker_developer", "issue_tracker_reporter", "media_read", "media_write", "mri_efax", "publication_approve", "publication_propose", "publication_view", "reliability_edit_all", "reliability_swap_candidates", "send_to_dcc", "server_processes_manager", "superuser", "timepoint_flag", "timepoint_flag_evaluate", "training", "unsend_to_dcc", "user_accounts", "user_accounts_multisite", "violated_scans_edit", "violated_scans_view_allsites"], { "useEDC": "true", "useProband": "false", "useFamilyID": "false", "useConsent": "true" });
+    </script>
+    <script src="./form-secondtry_files/jquery-1.11.0.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/helpHandler.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/modernizr.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/polyfills.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/react-with-addons.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/react-dom.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/jquery-ui-1.10.4.custom.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/jquery.dynamictable.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/jquery.fileupload.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/bootstrap.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/Breadcrumbs.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/sweetalert.min.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/queryString.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/Form.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/Markdown.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/PaginationLinks.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/StaticDataTable.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/DynamicDataTable.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/columnFormatter.js.download" type="text/javascript"></script>
+    <script src="./form-secondtry_files/onSort.js.download" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="./form-secondtry_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./form-secondtry_files/custom-css.css">
+    <link rel="stylesheet" href="./form-secondtry_files/datepicker.css">
+    <link rel="stylesheet" href="./form-secondtry_files/sweetalert.css">
+    <link rel="stylesheet" href="./form-secondtry_files/imaging_browser.css">
+
+    <title>LORIS Demonstration Database - Imaging Browser</title>
+    <style>
+        th {
+            color: black !important;
+            background-color: #1c70b6;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const breadcrumbs = [{ "text": "Imaging Browser", "query": "\/imaging_browser" }];
+
+            ReactDOM.render(
+                RBreadcrumbs({
+                    breadcrumbs: breadcrumbs,
+                    baseURL: loris.BaseURL
+                }),
+                document.getElementById("breadcrumbs")
+            );
+            document.title = document.title.concat(breadcrumbs.reduce(function (carry, item) {
+                return carry.concat(' - ', item.text);
+            }, ''));
+
+            // Initialize bootstrap tooltip for site affiliations
+            $('#site-affiliations').tooltip({
+                html: true,
+                container: 'body'
+            });
+        });
+    </script>
+    <link type="text/css" href="./form-secondtry_files/jqueryslidemenu.css" rel="Stylesheet">
+    <link href="./form-secondtry_files/simple-sidebar.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body data-gr-c-s-loaded="true" style="">
+
+    <div id="wrap">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="nav-left">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="glyphicon glyphicon-chevron-down" style="color:white"></span>
+                </button>
+                <button type="button" class="navbar-toggle help-button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <img width="17" src="./form-secondtry_files/help.gif">
+                </button>
+
+
+                <!-- toggle sidebar in mobile view -->
+
+                <!-- toggle feedback in mobile view -->
+
+
+                <a class="navbar-brand" href="https://demo.loris.ca/">LORIS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Candidate <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/new_profile/">
+                                    New Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/candidate_list/">
+                                    Access Profile
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Clinical <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/reliability/">
+                                    Reliability
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/conflict_resolver/">
+                                    Conflict Resolver
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/examiner/">
+                                    Examiner
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/training/">
+                                    Training
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/media/">
+                                    Media
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Imaging <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/dicom_archive/">
+                                    DICOM Archive
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/imaging_browser/">
+                                    Imaging Browser
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/mri_violations/">
+                                    MRI Violated Scans
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/imaging_uploader/">
+                                    Imaging Uploader
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/statistics/">
+                                    Statistics
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/dataquery/">
+                                    Data Query Tool
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/publication/">
+                                    Publications
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Tools <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/datadict/">
+                                    Data Dictionary
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/document_repository/">
+                                    Document Repository
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/data_integrity_flag/">
+                                    Data Integrity Flag
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/data_team_helper/">
+                                    Data Team Helper
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/instrument_builder/">
+                                    Instrument Builder
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/genomic_browser/">
+                                    Genomic Browser
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/data_release/">
+                                    Data Release
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/acknowledgements/">
+                                    Acknowledgements
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/issue_tracker/">
+                                    Issue Tracker
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle">
+                            Admin <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/user_accounts/">
+                                    User Accounts
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/survey_accounts/">
+                                    Survey Module
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/help_editor/">
+                                    Help Editor
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/instrument_manager/">
+                                    Instrument Manager
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/configuration/">
+                                    Configuration
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/server_processes_manager/">
+                                    Server Processes Manager
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" id="nav-right">
+
+                    <li class="hidden-xs hidden-sm">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="navbar-brand pull-right help-button">
+                            <img width="17" src="./form-secondtry_files/help.gif">
+                        </a>
+                    </li>
+                    <li class="nav">
+                        <a href="https://demo.loris.ca/imaging_browser/#" id="site-affiliations" data-toggle="tooltip"
+                            data-placement="bottom" title=""
+                            data-original-title="Data Coordinating Center&lt;br/&gt;Montreal&lt;br/&gt;Ottawa&lt;br/&gt;Rome">
+                            Site Affiliations: 4
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="https://demo.loris.ca/imaging_browser/#" class="dropdown-toggle" data-toggle="dropdown"
+                            style="padding-right:25px;">
+                            Admin account <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://demo.loris.ca/user_accounts/my_preferences/">
+                                    My Preferences
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://demo.loris.ca/?logout=true">
+                                    Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page" class="container-fluid">
+            <div class="page-content inset">
+
+                <div id="breadcrumbs">
+                    <div data-reactroot="" id="bc2" class="btn-group btn-breadcrumb"><a href="https://demo.loris.ca/"
+                            class="btn btn-primary"><span class="glyphicon glyphicon-home"
+                                aria-hidden="true"></span></a><a href="https://demo.loris.ca/imaging_browser"
+                            class="btn btn-primary">
+                            <div>Imaging Browser</div>
+                        </a></div>
+                </div>
+                <div>
+                    <div id="lorisworkspace">
+                        <!-- selection filter -->
+                        <!-- qnts fixme this modified version does not display certain fields in the mri browser selection window-->
+
+                        <script type="text/javascript">
+                            function hideFilter() {
+                                $("#panel-body").toggle();
+                                $("#down").toggle();
+                                $("#up").toggle();
+                            }
+                            function changeSaveButton() {
+                                if (document.getElementById("resultScan").value == "Atypical" || document.getElementById("resultScan").value == "Abnormal") {
+                                    $("#saveButton").hide();
+                                    $("#nextButton").show();
+                                } else {
+                                    $("#saveButton").show();
+                                    $("#nextButton").hide();
+                                }
+                            }
+                            let counter = 1;
+                            function nextFormPage() {
+                                $(".page" + counter).hide();
+                                counter = counter + 1;
+                                $(".page" + counter).show();
+                            }
+                            function previousFormPage() {
+                                $(".page" + counter).hide();
+                                counter = counter - 1;
+                                $(".page" + counter).show();
+                            }
+                            function hideFilterPage(number) {
+                                $("#down" + number).toggle();
+                                $("#up" + number).toggle();
+                                $("#display" + number).toggle();
+                            }
+                        </script>
+
+                        <script>
+                            loris.hiddenHeaders = ["SessionID"];
+                        </script>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" onclick="hideFilter();">
+                                        Incidental Findings
+                                        <span class="glyphicon glyphicon-chevron-down pull-right" style="display:none"
+                                            id="down"></span>
+                                        <span class="glyphicon glyphicon-chevron-up pull-right" id="up"></span>
+                                    </div>
+                                    <div class="panel-body" id="panel-body">
+                                        <form onsubmit="return false;" method="post"
+                                            action="https://demo.loris.ca/imaging_browser/">
+                                            <div class="row page1">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-4">
+                                                        PSCID
+                                                    </label>
+                                                    <div class="col-sm-12 col-md-8">
+                                                        <input name="pscid" type="text" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-4">
+                                                        Visit label
+                                                    </label>
+                                                    <div class="col-sm-12 col-md-8">
+                                                        <input name="visitLabel" type="text"
+                                                            class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-4">
+                                                        Date Reviewed
+                                                    </label>
+                                                    <div class="col-sm-12 col-md-8">
+                                                        <input name="dateReviewed" type="date"
+                                                            class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row page1">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-4">
+                                                        Reviewed By
+                                                    </label>
+                                                    <div class="col-sm-12 col-md-8">
+                                                        <input name="revBy" type="text" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-4">
+                                                        Follow Up Required:
+                                                    </label>
+                                                    <div class="col-sm-12 col-md-8">
+                                                        <select name="followUp" class="form-control input-sm">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row page1">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="col-sm-12 col-md-12">
+                                                        Results of radiological review: <br> <small>*note: normal
+                                                            results skip the rest of the form</small>
+                                                    </label>
+                                                    <div oninput="changeSaveButton()"
+                                                        class="col-sm-12 col-md-8 d-inline">
+                                                        <select id="resultScan" name="Scan_type"
+                                                            class="form-control input-sm">
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Atypical">Atypical</option>
+                                                            <option value="Abnormal">Abnormal</option>
+                                                        </select>
+                                                    </div>
+                                                    <div id="saveButton" style="margin-top:5px;"
+                                                        class="col-xs-6 d-inline saveButton"><button
+                                                            class="btn btn-primary">Save</button></div>
+                                                    <div onclick="nextFormPage()" id="nextButton"
+                                                        style="margin-top:5px; display:none;"
+                                                        class="col-xs-6 d-inline nextButton"><button
+                                                            class="btn btn-primary">Next >></button></div>
+                                                </div>
+                                            </div>
+                                            <!--closing row -->
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(1);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Normal Variations
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down1"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up1"></span>
+                                                </div>
+                                                <div id="display1" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cavum Septum Pellucidum</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Mega Cisterna Magna</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Empty Sella Configuration</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(2);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Congenital Malformations
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down2"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up2"></span>
+                                                </div>
+                                                <div id="display2" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Chiari 1 Malformation</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Parital Agenesis of the Corpus Collosum</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Agenisis of the Septum Pellucidum</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Ventriculomegaly</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(3);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Cysts
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down3"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up3"></span>
+                                                </div>
+                                                <div id="display3" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Arachnoid Cyst</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Pineal Gland Cyst</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Porencephalic Cyst</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Capillary Palangiectasia</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(4);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Migration Disorder
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down4"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up4"></span>
+                                                </div>
+                                                <div id="display4" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Subependymal gray-matter heterotopia</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Transmantle dysplasia</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Focal cortical dysplasia</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(5);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        White Matter Abnormalities
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down5"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up5"></span>
+                                                </div>
+                                                <div id="display5" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Focal white-matter hyperintensity</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Radiologically Isolated Syndrome</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page2">
+                                                <div onclick="hideFilterPage(6);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Neoplasms
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down6"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up6"></span>
+                                                </div>
+                                                <div id="display6" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Incidental Finding</th>
+                                                                <th>Present (check ONLY if yes)</th>
+                                                                <th>Size (mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Low Grade Glioma</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Dysembryoplastic Neoepythelial tumor</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Craniopharyngioma</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fibrodysplasia</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;"
+                                                                        type="number"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div onclick="previousFormPage()" id="nextButton"
+                                                style="margin-top:5px; display:none;"
+                                                class="col-xs-6 d-inline nextButton page2">
+                                                <button class="btn btn-primary">
+                                                    << Previous</button> </div> <div onclick="nextFormPage()"
+                                                        id="nextButton" style="margin-top:5px; display:none;"
+                                                        class="col-xs-6 d-inline nextButton page2">
+                                                        <button class="btn btn-primary">Next >></button>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page3">
+                                                <div onclick="hideFilterPage(7);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        White Matter Lesion Rating
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down7"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up7"></span>
+                                                </div>
+                                                <div id="display7" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Lesion Location</th>
+                                                                <th>WM Hyperintensities</th>
+                                                                <th>Blackholes</th>
+                                                                <th>Size(mm)</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Juxta Cortical</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Deep white matter</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Periventricular white matter</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Corpus callosum</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Brain stem</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cerebellum</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cervical cord</td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td><select>
+                                                                    <option value="0">0</option>
+                                                                    <option value="0-5">0-5</option>
+                                                                    <option value="5-10">5-10</option>
+                                                                    <option value=">10">>10</option>
+                                                                    <option value="confluent">confluent</option>
+                                                                    </select></td>
+                                                                <td><input style="width:100%;height:100%;" type="number">
+                                                                </td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page3">
+                                                <div onclick="hideFilterPage(8);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Perivascular Space Rating
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down8"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up8"></span>
+                                                </div>
+                                                <div id="display8" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Rating</th>
+                                                                <th>Check</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>None</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Mild</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Minimum</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Moderate</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Marked</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page3">
+                                                <div onclick="hideFilterPage(9);"
+                                                    style="background-color: #1c70b6;color:white;"
+                                                    class="panel-heading">
+                                                    <span>
+                                                        Subarachnoid Space Rating
+                                                    </span>
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right"
+                                                        id="down9"></span>
+                                                    <span class="glyphicon glyphicon-chevron-up pull-right"
+                                                        style="display:none" id="up9"></span>
+                                                </div>
+                                                <div id="display9" class="row"
+                                                    style="display:none;background-color:white;color:black;width: 100%;padding:0px;margin-left:0px !important;">
+                                                    <div style="width:100%;padding:0px;margin-bottom:0px;"
+                                                        class="form-group col-sm-4">
+                                                        <table style="margin-bottom:0px;"
+                                                            class="table table-hover table-primary table-bordered">
+                                                            <tr>
+                                                                <th>Rating</th>
+                                                                <th>Check</th>
+                                                                <th>Comments</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>None</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Mild</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Minimum</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Moderate</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Marked</td>
+                                                                <td><input style="width:100%;" type="checkbox"></td>
+                                                                <td><input style="width:100%;height:100%;" type="text">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div onclick="previousFormPage()" id="nextButton"
+                                                style="margin-top:5px; display:none;"
+                                                class="col-xs-6 d-inline nextButton page3">
+                                                <button class="btn btn-primary">
+                                                    << Previous</button> </div> <div onclick="nextFormPage()"
+                                                        id="nextButton" style="margin-top:5px; display:none;"
+                                                        class="col-xs-6 d-inline nextButton page3">
+                                                        <button class="btn btn-primary">Next >></button>
+                                            </div>
+
+                                            <div style="display:none;margin-bottom:5px;" class="row page4">
+                                                <h4 style="text-align: center;">Additional Comments</h4>
+                                                <input type="text" style="height:10vw;width:90%;margin-left:3.5vw;">
+                                            </div>
+
+                                            <div onclick="previousFormPage()" id="nextButton"
+                                                style="margin-top:5px; display:none;"
+                                                class="col-xs-6 d-inline nextButton page4">
+                                                <button class="btn btn-primary">
+                                                    << Previous</button> </div> <div id="nextButton"
+                                                        style="margin-top:5px; display:none;"
+                                                        class="col-xs-6 d-inline nextButton page4">
+                                                        <button class="btn btn-primary">
+                                                            Save</button> </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="footer" class="footer navbar-bottom">
+        <center>
+            <ul id="navlist" style="margin-top: 5px; margin-bottom: 2px;">
+                <li id="active">
+                    |
+                </li>
+                <li>
+                    <a href="http://www.loris.ca/" target="ba6a08bb360f0aa9714417423209790b" rel="noopener noreferrer">
+                        Loris Website
+                    </a>
+                    |
+                </li>
+                <li>
+                    <a href="https://github.com/aces/Loris" target="27a59904383f1b6e0dd569e6cdf72fa8"
+                        rel="noopener noreferrer">
+                        GitHub
+                    </a>
+                    |
+                </li>
+            </ul>
+        </center>
+        <div align="center" colspan="1">
+            Powered by LORIS © 2019. All rights reserved.
+        </div>
+        <div align="center" colspan="1">
+            Created by <a href="http://mcin-cnim.ca/" target="_blank">
+                MCIN
+            </a>
+        </div>
+    </div>
+
+    <a id="login-modal-button" href="https://demo.loris.ca/imaging_browser/#" data-toggle="modal"
+        data-target="#login-modal" style="display: none;">Login</a>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Login to Your Account
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <font color="red" align="middle" id="login-modal-error" style="display: none;">
+                                Incorrect username or password
+                            </font>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input id="modal-username" name="username" class="form-control" type="text" value=""
+                                placeholder="User">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input id="modal-password" name="password" class="form-control" type="password"
+                                placeholder="Password">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input class="btn btn-primary col-xs-12" id="modal-login" name="login" type="submit"
+                                value="Login">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
